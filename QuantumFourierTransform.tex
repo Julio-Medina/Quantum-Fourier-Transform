@@ -17,7 +17,7 @@
 
 \Large
  \begin{center}
-Transformada Cuántica de Fourier\\
+\textbf{Transformada Cuántica de Fourier}\\
 Seminario 2  
 
 \hspace{10pt}
@@ -37,28 +37,52 @@ Maestría en Física\\
 \hspace{10pt}
 
 \normalsize
-Durante el curso de Seminario 1 se han investigado los fundamentos teóricos de la computación cuántica. Se han repasado temas de mecánica estadística, como el concepto de ensambles, un tema recurrente en computación cuántica. La computación cuántica nace del deseo de Richcard P. Feynman de querer analizar y simular sistemas cuánticos por medio de sistemas informáticos, esto llevo rápidamente a la realización que el problema crecía exponencialmente con respecto al número de partículas a simular, esto implicaba que el costo computacional crecía de la misma manera, esto imposibilitó de gran manera simular dichos sistemas cuánticos. Feynman\cite{Feynman} publicó en 1981 un artículo seminal en el que plantó la semilla para crear sistemas de computación cuántica para simular mas efectivamente sistemas de naturaleza cuántica. \\
+La transformada de Fourier y el análisis de Fourier en general son una maquinaria matemática ubicua en la física. Esto es de esperarse ya que muchos fenómenos físicos son de naturaleza ondulatoria es decir que son fenómenos que involucran el estudio de ondas para su entendimiento, por mencionar algunos casos importantes en los que se aplica el análisis de Fourier en la física se tienen: \\
 
-Se han revisado conceptos fundamentales y básicos de la computación cuántica como:
 \begin{itemize}
-\item El concepto del bit cuántico, \textbf{\textit{qubit}}.
-\item Entrelazamiento cuántico.
-\item Superposición de estados cuánticos.
-\item Producto tensorial.
-\item La esfera de Bloch.
-\item Compuertas lógicas cuánticas.
-\item Operador de Hadamard.
-\item Teletransportación cuántica.
-\item Transformada cuántica de Fourier.
-\item Circuitos cuánticos.
-\item Algoritmo de Shor.
+\item Mecánica Cuántica
+\item Sismología
+\item Teoría electromagnética
+\item Vibraciones mecánicas.
+\item Procesamiento de señales naturales y artificiales.
+\item Espectroscopia. 
+\item Solución de ecuaciones diferenciales.
+\item Teoría cuántica de campo.
+\item Computación cuántica.
 
 \end{itemize} 
-Ademas de la investigación teórica se han aprendido conceptos prácticos a través de la API para computación cuántica creada por IBM, Qiskit \cite{Qiskit}. Dicha API se usa como una biblioteca de python mediante la cual se pueden accesar a computadoras cuánticas reales en las instalaciones de IBM para poder probar y desarrollar circuitos cuánticos básicos. Este proyecto de seminario y tesis de maestría ha sido subido a un proyecto de GitHub donde también se han subido algunos scripts en python utilizando Qiskit donde se han desarrollado algoritmos como el de Deutch-Jozsa y otros, \url{https://github.com/Julio-Medina/Seminario}, esto con el fin de tener un historial claro del progreso de esta investigación.
 
-\section{Inicios de la computación cuántica}
- La computación cuántica nace del deseo de Richcard P. Feynman de querer analizar y simular sistemas cuánticos por medio de sistemas informáticos, esto llevo rápidamente a la realización que el problema crecía exponencialmente con respecto al número de partículas a simular, esto implicaba que el costo computacional crecía de la misma manera, esto imposibilitó de gran manera simular dichos sistemas cuánticos. Feynman\cite{Feynman} publicó en 1981 un artículo seminal en el que plantó la semilla para crear sistemas de computación cuántica para simular mas efectivamente sistemas de naturaleza cuántica. \\
- 
+\section{Transformada de Fourier Clásica}
+\subsection{Series de Fourier}
+Una serie de Fourier se puede definir como una expansión o una representación de una función en series de seno y coseno con la forma 
+\begin{equation}\label{eq::fourier_series}
+f(x)=\frac{a_0}{2}+\sum_{n=1}^\infty a_n \cos nx + \sum_{n=1}^\infty b_n \sin nx
+\end{equation}
+Las condiciones impuestas sobre $f(x)$ para que la ecuación anterior sea valida, son que $f(x)$ tenga un número finito de discontinuidades finitas y un número finito de valores extremos, máximos y mínimos. Estas condiciones se conocen como condiciones de Dirichlet. La teoría de Sturm-Lioville(ver \cite{Arfken}) garantiza la validez de la ecuación \ref{eq::fourier_series} usando las relaciones de ortogonalidad se pueden obtener los coeficientes de expansión
+\begin{equation*}
+a_n=\frac{1}{\pi} \int^{2\pi}_0 f(t) \cos{nt}\, dt
+\end{equation*}
+
+\begin{equation*}
+b_n=\frac{1}{\pi} \int^{2\pi}_0 f(t) \sin{nt}\, dt, \,\,\,\,\,\, n=0,1,2,\hdots
+\end{equation*}
+Sustituyendo los coeficientes $a_n$ y $b_n$ en \ref{eq::fourier_series} se obtiene
+\begin{equation}
+\begin{aligned}
+f(x)&=\frac{1}{2\pi}\int_0^\infty f(t)dt+\frac{1}{\pi}\sum_{n=1}^\infty\Big[ \cos{nx}\int_0^{2\pi} f(t) \cos{nt}\,dt + \sin{nx}\int_0^{2\pi} f(t) \sin{nt}\,dt \Big]\\
+&=\frac{1}{2\pi}\int_0^\infty f(t)dt+\frac{1}{\pi}\sum^\infty_{n=1} \int^{2\pi}_0 f(t)\cos{n(x-t)\,dt}
+\end{aligned}
+\end{equation}
+las expresiones anteriores son validas para representar a la función $f(x)$ en el intervalo $[0,2\pi]$. Para representarlas en un intervalo de longitud $2L$ se pueden expresar la ecuación \ref{eq::fourier_series} y sus coeficientes como:
+\begin{equation}
+f(x)=\frac{a_0}{2}+\sum_{n=1}^\infty \Big[ a_n \cos{\frac{n\pi x}{L}} + b_n \sin{\frac{n\pi x}{L}} \Big]
+\end{equation}
+\begin{equation*}
+\begin{aligned}
+a_n&=\frac{1}{L} \int^{L}_{-L} f(t) \cos{nt}\, dt \\
+b_n&=\frac{1}{L} \int^{L}_{-L} f(t) \sin{nt}\, dt, \,\,\,\,\,\, n=0,1,2,\hdots
+\end{aligned}
+\end{equation*}
 \section{De bits a Qubits}
 En la computación clásica los estados o bits son $1$ o $0$, sin embargo en mecánica cuántica debido al principio de superposición de estados, se tiene que un qubit se puede encontrar en una superposición de estados i.e. simultáneamente estar en $1$ y $0$. Dichas superposiciones permiten realizar cálculos en varios estados simultáneamente, es decir se paralelizan los procesos de computo de una manera natural. Esto permite crear algoritmos cuánticos con mejoras exponenciales en el desempeño de computación. Sin embargo debido al colapso de la función de onda, cuando se hace una medición en los estados de superposición el estado colapsa en uno de los eigen-estados del operador que se utiliza para hacer la medición. \\
 Debido a esto los algoritmos cuánticos se diseñan de tal manera que la respuesta correcta se amplifique, es decir que haya una resonancia de la respuesta correcta en la función de onda, esto hace que el diseño de algoritmos cuánticos sea una tarea poco trivial.
@@ -185,13 +209,7 @@ Como es de esperarse ya que $\bigg| \langle -|\psi\rangle\bigg|^2=\bigg| \langle
 Se utiliza el "modelo de circuitos", una secuencia de bloques básicos que realizan los cómputos elementales, a estos bloques básicos se les conoce como compuertas.
 \subsection{Compuertas de un solo Qubit}
 Para hacer una analogía con las compuertas lógicas clásicas se presenta la compuerta lógica NOT, representada por \ref{fig::NOT_gate}, 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.4]{./classicalNOT.png} 
-\end{center} 
-\caption{Compuerta NOT}
-\label{fig::NOT_gate}
-\end{figure}
+
 como se puede ver en la figura la operación que realiza el operador NOT en un bit es trivial, invierte el estado de bit de 0 a 1 y viceversa.
 Una de las características fundamentales de la teoría cuántica es el hecho que es unitaria, es decir que los operadores cuánticos, en este caso las compuertas cuánticas tienen que ser operadores unitarios(matrices unitarias), es decir que para un operador $U$ se cumple que:
 \begin{equation}
@@ -400,13 +418,7 @@ Estos resultados se pueden resumir en la siguiente tabla, donde las dos primeras
 \end{tabular}
 \end{center}
 Una representación gráfica de la compuerta CNOT realizada con la API de computación cuántica Qiskit se puede ver en la siguiente figura:
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.29]{./basic_CNOT_circuit.png} 
-\end{center} 
-\caption{Compuerta cuántica CNOT}
-\label{fig::NOT_gate}
-\end{figure}\\
+
 Es posible demostrar que los circuitos cuánticos pueden calcular cualquier función clásica de álgebra boolena, el fundamento de los circuitos digitales y por ende de toda computadora clásica.
 
 \section{Entrelazamiento cuántico}
@@ -436,13 +448,7 @@ La correlación no es atributo exclusivo de la mecánica cuántica esta correlac
 y hacer una medición en la base $\{|++\rangle,|--\rangle\}$ y se mantiene la correlación.
 \subsection{Creación de los estados de Bell}
 Para crear a los estado de Bell se puede crear un circuito cuántico
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.69]{./Bell_states_creation.png} 
-\end{center} 
-\caption{Circuito cuántico para la creación de estados de Bell}
-\label{fig::NOT_gate}
-\end{figure}\\
+
 Esto equivale a 
 \begin{equation}
 \text{CNOT}\bigg((H_A\otimes\mathbb{1}_B)|ij\rangle_{AB} \bigg)
@@ -461,13 +467,7 @@ con $i,j\in\{0,1\}$, para entender paso a paso este circuito o cálculo se prese
 \end{center}
 \subsection{Medición de Bell}
 Como se ha mencionado varias veces se tiene que los circuitos cuánticos son reversibles, por lo que para ir en el sentido contrario al circuito de creación de Bell que se presentó anteriormente se introduce un circuito cuántico conocido como medición de Bell, que revierte el proceso, el circuito esta definido como 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.69]{./Bell_measurement.png} 
-\end{center} 
-\caption{Circuito cuántico para la medición de Bell}
-\label{fig::Bell_measurement}
-\end{figure}\\
+
 Esto equivale a 
 \begin{equation}
 (\sigma_x\otimes\sigma_x)(H\otimes\mathbb{1})(CNOT|\psi^{ij}\rangle)
@@ -500,15 +500,7 @@ Y esto equivale utilizando las definiciones de los estados de Bell(\ref{eq::bell
 \end{equation}\\
 
 Con estos resultados es posible establecer un protocolo de teletransportación cuántica como se ve en la figura \ref{fig::qt_protocol}.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.20]{./teletransportation_protocol.png} 
-\end{center} 
-\caption{Protocolo de teletransportación cuántica.}
-\label{fig::qt_protocol}
-\end{figure}\\
-\linebreak
-\pagebreak
+
 \newpage
 Los pasos del protocolo son los siguientes:
 \begin{enumerate}
@@ -536,6 +528,7 @@ Hay que notar que cuando Alice hizo la medición de Bell su estado colapsó, por
 %% autor o autor principal
 %% cada entrada tiene su formatado dependiendo si es libro, artículo,
 %% tesis, contenido en la web, etc
+\bibitem{Arfken} George Arfken. \textit{Mathematical Methods for Physicists}.
 
 \bibitem{Bell} J.S. Bell. \textit{On the Einstein Podolski Rosen Paradox}. \url{https://cds.cern.ch/record/111654/files/vol1p195-200_001.pdf}
 
