@@ -73,17 +73,41 @@ f(x)&=\frac{1}{2\pi}\int_0^\infty f(t)dt+\frac{1}{\pi}\sum_{n=1}^\infty\Big[ \co
 &=\frac{1}{2\pi}\int_0^\infty f(t)dt+\frac{1}{\pi}\sum^\infty_{n=1} \int^{2\pi}_0 f(t)\cos{n(x-t)\,dt}
 \end{aligned}
 \end{equation}
-las expresiones anteriores son validas para representar a la función $f(x)$ en el intervalo $[0,2\pi]$. Para representarlas en un intervalo de longitud $2L$ se pueden expresar la ecuación \ref{eq::fourier_series} y sus coeficientes como:
+las expresiones anteriores son válidas para representar a la función $f(x)$ en el intervalo $[0,2\pi]$. Para representarlas en un intervalo de longitud $2L$ se pueden expresar la ecuación \ref{eq::fourier_series} y sus coeficientes como:
 \begin{equation}
 f(x)=\frac{a_0}{2}+\sum_{n=1}^\infty \Big[ a_n \cos{\frac{n\pi x}{L}} + b_n \sin{\frac{n\pi x}{L}} \Big]
 \end{equation}
-\begin{equation*}
+\begin{equation}\label{eq::Fourier_coeff}
 \begin{aligned}
-a_n&=\frac{1}{L} \int^{L}_{-L} f(t) \cos{nt}\, dt \\
-b_n&=\frac{1}{L} \int^{L}_{-L} f(t) \sin{nt}\, dt, \,\,\,\,\,\, n=0,1,2,\hdots
+a_n&=\frac{1}{L} \int^{L}_{-L} f(t) \cos{\frac{n\pi t}{L}}\, dt \\
+b_n&=\frac{1}{L} \int^{L}_{-L} f(t) \sin{\frac{n\pi t}{L}}\, dt, \,\,\,\,\,\, n=0,1,2,\hdots
 \end{aligned}
-\end{equation*}
+\end{equation}
 \subsection{Integral de Fourier}
+Como se ha mencionado las series de Fourier son especialmente útiles para representar cierto tipo de funciones en un rango definido: $[0,2\pi]$, $[-L,L]$, y así sucesivamente como sea necesario, o en el intervalo $[-\infty,\infty]$ si la función es periódica. Ahora se analiza el problema de representar una función no periódica sobre un rango infinito. Esto se puede interpretar físicamente como la descomposición de un pulso aislado o un paquete de onda en sus componentes senoidales. Los coeficientes de la serie de Fourier en el intervalo $[-L,L]$ dados por \ref{eq::Fourier_coeff} dan cómo resultado la serie de Fourier:
+\begin{equation}
+\begin{aligned}
+f(x)=\frac{1}{2L}\int^L_{-L} f(t)\,dt + \frac{1}{L}\sum_{n=1}^\infty \cos{\frac{n\pi x}{L}}\int^L_{-L} f(t) \cos{\frac{n\pi t}{L}}\, dt +\\
+ \frac{1}{L}\sum_{n=1}^{\infty}\sin{\frac{n \pi x}{L}}\int^L_{-L} f(t)\,dt \sin\frac{n\pi x }{L}\,dt 
+\end{aligned}
+\end{equation}
+esto se puede reescribir como 
+\begin{equation}
+f(x)=\frac{1}{2L}\int^L_{-L} f(t)\, dt + \frac{1}{L}\sum^\infty_{n=1}\int^L_{-L} f(t)\cos\frac{n\pi}{L}(t-x)\,dt.
+\end{equation}\\
+Ahora se permite que el parámetro $L$ se acerque al infinito, transformando el intervalo finito $[-L,L]$ en un intervalo infinito $(-\infty,\infty)$. Se asignan
+\begin{equation}
+\omega=\frac{n\pi}{L}, \,\,\,\,\,\, \Delta\omega=\frac{\pi}{L},\,\,\,\,\,\,\, \text{con } L\rightarrow\infty.
+\end{equation}
+Con esto se obtiene 
+\begin{equation}
+f(x)\rightarrow \frac{1}{\pi}\sum_{n=1}^\infty \Delta\omega \int_{-\infty}^\infty f(t) \cos{\omega(t-x)}\,dt,
+\end{equation}
+sustituyendo la suma infinita por una integral sobre $\omega$, se obtiene
+\begin{equation}
+f(x)=\frac{1}{\pi}\int_0^\infty\,d\omega \int_{-\infty}^\infty f(t)\cos{\omega(t-x)}\,dt,
+\end{equation}
+el término $a_0$ se desvanece asumiendo que $\int_{-\infty}^\infty f(t)\,dt$ existe.
 \section{De bits a Qubits}
 En la computación clásica los estados o bits son $1$ o $0$, sin embargo en mecánica cuántica debido al principio de superposición de estados, se tiene que un qubit se puede encontrar en una superposición de estados i.e. simultáneamente estar en $1$ y $0$. Dichas superposiciones permiten realizar cálculos en varios estados simultáneamente, es decir se paralelizan los procesos de computo de una manera natural. Esto permite crear algoritmos cuánticos con mejoras exponenciales en el desempeño de computación. Sin embargo debido al colapso de la función de onda, cuando se hace una medición en los estados de superposición el estado colapsa en uno de los eigen-estados del operador que se utiliza para hacer la medición. \\
 Debido a esto los algoritmos cuánticos se diseñan de tal manera que la respuesta correcta se amplifique, es decir que haya una resonancia de la respuesta correcta en la función de onda, esto hace que el diseño de algoritmos cuánticos sea una tarea poco trivial.
