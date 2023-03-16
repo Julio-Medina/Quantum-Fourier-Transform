@@ -104,10 +104,33 @@ Con esto se obtiene
 f(x)\rightarrow \frac{1}{\pi}\sum_{n=1}^\infty \Delta\omega \int_{-\infty}^\infty f(t) \cos{\omega(t-x)}\,dt,
 \end{equation}
 sustituyendo la suma infinita por una integral sobre $\omega$, se obtiene
-\begin{equation}
+\begin{equation}\label{eq::Fourier_integral}
 f(x)=\frac{1}{\pi}\int_0^\infty\,d\omega \int_{-\infty}^\infty f(t)\cos{\omega(t-x)}\,dt,
 \end{equation}
-el término $a_0$ se desvanece asumiendo que $\int_{-\infty}^\infty f(t)\,dt$ existe.
+el término $a_0$ se desvanece asumiendo que $\int_{-\infty}^\infty f(t)\,dt$ existe.\\
+El resultado \ref{eq::Fourier_integral} se conoce como integral de Fourier, este resultado puede expresarse convenientemente de manera exponencial al notar que 
+\begin{equation}\label{eq::Fourier_cosine}
+f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}d\omega \int_{-\infty}^\infty f(t) \cos\omega(t-x)\, dt,
+\end{equation}
+además se tiene que 
+\begin{equation}\label{eq::Fourier_sine}
+\frac{1}{2\pi}\int_{-\infty}^\infty d\omega \int_{-\infty}^\infty f(t) \sin\omega(t-x)\, dt=0
+\end{equation}
+estos resultados son consecuencia que la función $\cos \omega (t-x)$ es una función par sobre la variable $\omega$ y $\sin\omega(t-x)$ es una función impar en $\omega$, sumando \ref{eq::Fourier_cosine} y \ref{eq::Fourier_sine} multiplicada por un factor de la unidad imaginaria $i$, se obtiene
+\begin{equation}\label{eq::Fourier_exponetial}
+f(x)=\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i \omega x }\,d\omega \int_{-\infty}^\infty f(t)e^{i\omega t}\,dt.
+\end{equation}
+La variable $\omega$ es una variable arbitraria, también conocida como variable muda, juega el papel que toma un indice en una sumatoria como indice mudo, sin embargo en muchos problemas físicos $\omega$ representa una frecuencia angular. Con esto se puede interpretar a las expresiones \ref{eq::Fourier_cosine} y \ref{eq::Fourier_exponetial} como representaciones de $f(x)$ en términos de una distribución de frentes de onda de longitud infinita con frecuencia angular $\omega$ donde la frecuencia es una variable real continua.
+\subsection{Transformada de Fourier}
+Definiendo a una función $g(\omega)$, como la transformada de Fourier a través de 
+\begin{equation}\label{eq::Fourier_trainsform}
+g(\omega)\equiv \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty f(t) e ^{i\omega t }\, dt.
+\end{equation}
+entonces es fácil ver que de la integral de Fourier \ref{eq::Fourier_exponetial} se tiene 
+\begin{equation}\label{eq::Inverse_Fourier_transform}
+f(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty g(\omega)e^{-i \omega x}\, d\omega.
+\end{equation}
+esta relación también es conocida como teorema de la inversión o transformada inversa de Fourier, vale la pena notar que las expresiones \ref{eq::Fourier_trainsform} y \ref{eq::Inverse_Fourier_transform} son casi simétricas, sin embargo difieren por el signo de la unidad imaginaria $i$.
 \section{De bits a Qubits}
 En la computación clásica los estados o bits son $1$ o $0$, sin embargo en mecánica cuántica debido al principio de superposición de estados, se tiene que un qubit se puede encontrar en una superposición de estados i.e. simultáneamente estar en $1$ y $0$. Dichas superposiciones permiten realizar cálculos en varios estados simultáneamente, es decir se paralelizan los procesos de computo de una manera natural. Esto permite crear algoritmos cuánticos con mejoras exponenciales en el desempeño de computación. Sin embargo debido al colapso de la función de onda, cuando se hace una medición en los estados de superposición el estado colapsa en uno de los eigen-estados del operador que se utiliza para hacer la medición. \\
 Debido a esto los algoritmos cuánticos se diseñan de tal manera que la respuesta correcta se amplifique, es decir que haya una resonancia de la respuesta correcta en la función de onda, esto hace que el diseño de algoritmos cuánticos sea una tarea poco trivial.
