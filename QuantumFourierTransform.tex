@@ -13,7 +13,7 @@
 \usepackage{hyperref}
 
 \begin{document}
-\pagenumbering{gobble}
+\pagenumbering{arabic}
 
 \Large
  \begin{center}
@@ -162,7 +162,7 @@ donde $\omega_{N}^{jk}$ está definido en \ref{eq::omega_definition}, es importa
 \end{equation}
 o por la matriz unitaria
 \begin{equation}
-U_{\text{QFT}}\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\sum_{k=0}^{N-1}\omega_{N}^{jk}|k\rangle\langle j|
+U_{\text{QFT}}=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}\sum_{k=0}^{N-1}\omega_{N}^{jk}|k\rangle\langle j|
 \end{equation}
 \subsubsection{Intuición detrás de la TCF(QFT)}
 La intuición detrás de la Transformada Cuántica de Fourier(QFT-\textit{Quantum Fourier Transform}) viene del hecho que el efecto que tiene al transformar a un estado cuántico basicamente se está cambiando de la base computacional Z  a la base de Fourier. La compuerta de Hadamard(\cite{Medina}, \cite{Qiskit}, \cite{Nielsen}) es la transformada de Fourier cuántica para un solo qubit, transforma de base computacional Z $\{|0\rangle, |1\rangle\}$ a la base X $\{|+\rangle, |-\rangle \}$. De la misma manera todos los estados de partículas múltiples es decir estados de varios qubit en la base computacional tiene una representación en la base de Fourier. La TCF simplemente es la función que transforma entre estas bases.
@@ -184,8 +184,23 @@ con esto se obtiene el resultado total sobre $|\psi\rangle$
 \begin{equation}
 U_{\text{QFT}}|\psi\rangle=\frac{1}{\sqrt{2}}(\alpha+\beta)|0\rangle + \frac{1}{\sqrt{2}}(\alpha-\beta)|1\rangle
 \end{equation}
+está operación es equivalente a aplicar el operador de Hadamard
+\begin{equation}
+H=\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1&1\\
+1&-1
+\end{bmatrix}
+\end{equation}
+al estado $\vert \psi\rangle$, 
+\begin{equation}
+\begin{aligned}
+H\vert\psi\rangle&=\frac{1}{\sqrt{2}}(\alpha+\beta)|0\rangle + \frac{1}{\sqrt{2}}(\alpha-\beta)|1\rangle\equiv \tilde{\alpha}\vert 0\rangle+ \tilde{\beta}\vert 1\rangle\\
+&=\alpha \vert + \rangle +\beta \vert - \rangle
+\end{aligned}
+\end{equation}
 \subsection{Transformada Cuántica de Fourier: definición general}
-La ejemplo anterior no deja del todo claro el como se aplica una transformada cuántica de Fourier para N más grandes. Aquí se toma a $N=2^n$, es decir $U_{\text{QFT}_N}$ actuando en el estado $|x\rangle=|x_1\hdots x_n\rangle$ donde $x_1$ es el bit más significativo. Con esto se aplica la expresión \ref{eq::QFT_general} para obtener
+La ejemplo anterior no deja del todo claro el como se aplica una transformada cuántica de Fourier para N más grandes. Aquí se toma a $N=2^n$, es decir $U_{\text{QFT}_N}$ actuando en el estado $|x\rangle=|x_1\hdots x_n\rangle$\footnote{Se hace uso de la notación $|x_1\hdots x_n\rangle=|x_1\rangle\otimes\hdots\otimes |x_n\rangle$ } donde $x_1$ es el bit más significativo. Con esto se aplica la expresión \ref{eq::QFT_general} para obtener
 \begin{equation}\label{eq::QFT}
 \begin{aligned}
 U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}}\sum_{y=0}^{N-1}\omega_N^{xy}|y\rangle\\
@@ -207,7 +222,7 @@ donde se ha expresado al exponencial de una suma como un producto de exponencial
 \begin{equation}\label{eq::QFT_3}
 \begin{aligned}
 U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}} \bigotimes_{k=1}^n \bigg(|0\rangle + e^{2\pi i x/2^k}|1\rangle \bigg)  \\
-&=\frac{1}{\sqrt{N}}\bigg(|0\rangle + e^{\frac{2\pi i}{2} x} |1\rangle \bigg)\otimes\bigg(|0\rangle + e^{\frac{2\pi i}{2^2} x} |1\rangle \bigg)\otimes \hdots \bigg(|0\rangle + e^{\frac{2\pi i}{2^{n}} x} |1\rangle \bigg)
+&=\frac{1}{\sqrt{N}}\bigg(|0\rangle + e^{\frac{2\pi i}{2} x} |1\rangle \bigg)\otimes\bigg(|0\rangle + e^{\frac{2\pi i}{2^2} x} |1\rangle \bigg)\otimes \hdots \otimes \bigg(|0\rangle + e^{\frac{2\pi i}{2^{n}} x} |1\rangle \bigg)
 \end{aligned}
 \end{equation}
 %En este trabajo de graduación consta de dos partes, en la primera parte se ha realizado una investigación sobre el enfoque de la mecánica estadística en la redes neuronales. En la segunda parte
