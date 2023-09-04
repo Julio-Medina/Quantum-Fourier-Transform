@@ -148,7 +148,11 @@ De manera análoga la transformada cuántica de Fourier actúa sobre un estado c
 \begin{equation}
 |X\rangle=\sum_{j=0}^{N-1} x_{j}|j\rangle
 \end{equation}
-y lo mapea a un estado $|Y\rangle=\sum_{k=0}^{N-1} y_{k}|k\rangle$ conforme a la expresión
+y lo mapea a un estado 
+\begin{equation}\label{eq::QFT_general}
+|Y\rangle=\sum_{k=0}^{N-1} y_{k}|k\rangle
+\end{equation}
+conforme a la expresión
 \begin{equation}
 y_k=\frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}x_j\omega_{N}^{jk}
 \end{equation}
@@ -180,7 +184,32 @@ con esto se obtiene el resultado total sobre $|\psi\rangle$
 \begin{equation}
 U_{\text{QFT}}|\psi\rangle=\frac{1}{\sqrt{2}}(\alpha+\beta)|0\rangle + \frac{1}{\sqrt{2}}(\alpha-\beta)|1\rangle
 \end{equation}
-
+\subsection{Transformada Cuántica de Fourier: definición general}
+La ejemplo anterior no deja del todo claro el como se aplica una transformada cuántica de Fourier para N más grandes. Aquí se toma a $N=2^n$, es decir $U_{\text{QFT}_N}$ actuando en el estado $|x\rangle=|x_1\hdots x_n\rangle$ donde $x_1$ es el bit más significativo. Con esto se aplica la expresión \ref{eq::QFT_general} para obtener
+\begin{equation}\label{eq::QFT}
+\begin{aligned}
+U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}}\sum_{y=0}^{N-1}\omega_N^{xy}|y\rangle\\
+&=\frac{1}{\sqrt{N}}\sum_{y=0}^{N-1} e^{2\pi i xy/2^{n}}|y\rangle
+\end{aligned}
+\end{equation}
+reescribiendo $y$ en notación fraccional binaria $y=y_1\hdots y_n$ con
+\begin{equation*}
+\frac{y}{2^n}=\sum_{k=1}^{n}\frac{y_k}{2^k}
+\end{equation*}
+donde $y_k \in\{ 0, 1 \}$, sustituyendo en \ref{eq::QFT} se obtiene
+\begin{equation}\label{eq::QFT_2}
+\begin{aligned}
+U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}}\sum_{y=0}^{N-1}e^{2\pi i(\sum_{k=1}^n y_k/2^k)}|y_1 \hdots y_n\rangle\\
+&=\frac{1}{\sqrt{N}}\sum_{y=0}^{N-1} \prod_{k=1}^n e^{2\pi i x y_k/2^{k}}|y_1 \hdots y_n\rangle
+\end{aligned}
+\end{equation}
+donde se ha expresado al exponencial de una suma como un producto de exponenciales. Re-arreglando las sumas y productos, y expandiendo $\sum_{y=0}^{N-1}=\sum_{y_1=0}^1 \sum_{y_2=0}^1 \hdots \sum_{y_n=0}^1$, se obtiene
+\begin{equation}\label{eq::QFT_3}
+\begin{aligned}
+U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}} \bigotimes_{k=1}^n \bigg(|0\rangle + e^{2\pi i x/2^k}|1\rangle \bigg)  \\
+&=\frac{1}{\sqrt{N}}\bigg(|0\rangle + e^{\frac{2\pi i}{2} x} |1\rangle \bigg)\otimes\bigg(|0\rangle + e^{\frac{2\pi i}{2^2} x} |1\rangle \bigg)\otimes \hdots \bigg(|0\rangle + e^{\frac{2\pi i}{2^{n}} x} |1\rangle \bigg)
+\end{aligned}
+\end{equation}
 %En este trabajo de graduación consta de dos partes, en la primera parte se ha realizado una investigación sobre el enfoque de la mecánica estadística en la redes neuronales. En la segunda parte
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
