@@ -185,7 +185,7 @@ con esto se obtiene el resultado total sobre $|\psi\rangle$
 U_{\text{QFT}}|\psi\rangle=\frac{1}{\sqrt{2}}(\alpha+\beta)|0\rangle + \frac{1}{\sqrt{2}}(\alpha-\beta)|1\rangle
 \end{equation}
 está operación es equivalente a aplicar el operador de Hadamard
-\begin{equation}
+\begin{equation}\label{eq::Hadamard_gate}
 H=\frac{1}{\sqrt{2}}
 \begin{bmatrix}
 1&1\\
@@ -224,6 +224,11 @@ donde se ha expresado al exponencial de una suma como un producto de exponencial
 U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}} \bigotimes_{k=1}^n \bigg(|0\rangle + e^{2\pi i x/2^k}|1\rangle \bigg)  \\
 &=\frac{1}{\sqrt{N}}\bigg(|0\rangle + e^{\frac{2\pi i}{2} x} |1\rangle \bigg)\otimes\bigg(|0\rangle + e^{\frac{2\pi i}{2^2} x} |1\rangle \bigg)\otimes \hdots \otimes \bigg(|0\rangle + e^{\frac{2\pi i}{2^{n}} x} |1\rangle \bigg)
 \end{aligned}
+\end{equation}
+\section{Circuito para la Transformada Cuántica de Fourier}
+La transformada cuántica de Fourier se puede implementar utilizando el modelo de circuitos cuántico utilizado por varias implementaciones reales de la computación cuántica, para ver una introducción de estos circuitos  se puede consultar \cite{Qiskit}, \cite{Medina}, \cite{Nielsen} etc. Para construir el circuito de QFT se utilizan 2 compuertas, la primera es una compuerta de un solo qubit i.e. la compuerta de Hadamard \ref{eq::Hadamard_gate}, de la discusión del ejemplo de la QFT para 1-qubit y de la deducción de la expresión general para la QFT se sabe que para el estado de un solo qubit $\vert x_k\rangle$ la transformada de Fourier cuántica correspondiente es 
+\begin{equation}
+H\vert x_k\rangle=\frac{1}{\sqrt{2}}\bigg(\vert 0\rangle + \exp{\frac{2\pi i}{2} x_k}\vert 1\rangle\bigg)
 \end{equation}
 %En este trabajo de graduación consta de dos partes, en la primera parte se ha realizado una investigación sobre el enfoque de la mecánica estadística en la redes neuronales. En la segunda parte
 \begin{thebibliography}{99}
