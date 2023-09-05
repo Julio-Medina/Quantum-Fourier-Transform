@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{blindtext}
 \usepackage{hyperref}
+\usepackage{mathtools}
 
 \begin{document}
 \pagenumbering{arabic}
@@ -230,7 +231,38 @@ La transformada cuántica de Fourier se puede implementar utilizando el modelo d
 \begin{equation}
 H\vert x_k\rangle=\frac{1}{\sqrt{2}}\bigg(\vert 0\rangle + \exp{\frac{2\pi i}{2} x_k}\vert 1\rangle\bigg)
 \end{equation}
-%En este trabajo de graduación consta de dos partes, en la primera parte se ha realizado una investigación sobre el enfoque de la mecánica estadística en la redes neuronales. En la segunda parte
+la segunda compuerta para 2 qubit, es la rotación controlada $C\,\text{ROT}_k$, que en notación de bloques de matrices está definida como 
+\begin{equation}
+C\,\text{ROT}_k=
+\begin{bmatrix}
+\mathbf{I}& 0\\
+0& U\,\text{ROT}_k\\
+\end{bmatrix}
+\end{equation}
+donde 
+\begin{equation}
+U\,\text{ROT}_k=
+\begin{bmatrix}
+1& 0\\
+0& \exp{\frac{2\pi i}{2^k}}\\
+\end{bmatrix}
+\end{equation}
+El efecto de aplicar $C\,\text{ROT}_k$ en un estado de dos qubits $\vert x_l x_j\rangle$ donde el primer qubit es el qubit de control y el segundo qubit es el objetivo, viene dado por
+\begin{equation}
+C\,\text{ROT}_k \vert 0\,x_j\rangle=\vert 0 \, x_j\rangle
+\end{equation}
+y
+\begin{equation}
+C\,\text{ROT}_k \vert 1\,x_j\rangle=\exp{\frac{2\pi i }{2^k} x_j}\vert 1 \, x_j\rangle
+\end{equation}
+Con estas dos compuertas se puede construir el circuito que implementa la transformada de cuántica de Fourier como se muestra en el siguiente diagrama
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.29]{./qft_circuit.png} 
+\end{center} 
+\caption{Implementación de circuito QFT}
+\label{fig::NOT_gate}
+\end{figure}
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
 %% autor o autor principal
