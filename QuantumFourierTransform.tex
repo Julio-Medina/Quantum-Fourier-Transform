@@ -229,7 +229,7 @@ U_{\text{QFT}_N}|x\rangle &=\frac{1}{\sqrt{N}} \bigotimes_{k=1}^n \bigg(|0\rangl
 \section{Circuito para la Transformada Cuántica de Fourier}
 La transformada cuántica de Fourier se puede implementar utilizando el modelo de circuitos cuántico utilizado por varias implementaciones reales de la computación cuántica, para ver una introducción de estos circuitos  se puede consultar \cite{Qiskit}, \cite{Medina}, \cite{Nielsen} etc. Para construir el circuito de QFT se utilizan 2 compuertas, la primera es una compuerta de un solo qubit i.e. la compuerta de Hadamard \ref{eq::Hadamard_gate}, de la discusión del ejemplo de la QFT para 1-qubit y de la deducción de la expresión general para la QFT se sabe que para el estado de un solo qubit $\vert x_k\rangle$ la transformada de Fourier cuántica correspondiente es 
 \begin{equation}
-H\vert x_k\rangle=\frac{1}{\sqrt{2}}\bigg(\vert 0\rangle + \exp{\frac{2\pi i}{2} x_k}\vert 1\rangle\bigg)
+H\vert x_k\rangle=\frac{1}{\sqrt{2}}\bigg(\vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2} x_k}\bigg)\vert 1\rangle\bigg)
 \end{equation}
 la segunda compuerta para 2 qubit, es la rotación controlada $C\,\text{ROT}_k$, que en notación de bloques de matrices está definida como 
 \begin{equation}
@@ -244,7 +244,7 @@ donde
 U\,\text{ROT}_k=
 \begin{bmatrix}
 1& 0\\
-0& \exp{\frac{2\pi i}{2^k}}\\
+0& \exp{\big(\frac{2\pi i}{2^k}\big)}\\
 \end{bmatrix}
 \end{equation}
 El efecto de aplicar $C\,\text{ROT}_k$ en un estado de dos qubits $\vert x_l x_j\rangle$ donde el primer qubit es el qubit de control y el segundo qubit es el objetivo, viene dado por
@@ -253,7 +253,7 @@ C\,\text{ROT}_k \vert 0\,x_j\rangle=\vert 0 \, x_j\rangle
 \end{equation}
 y
 \begin{equation}
-C\,\text{ROT}_k \vert 1\,x_j\rangle=\exp{\frac{2\pi i }{2^k} x_j}\vert 1 \, x_j\rangle
+C\,\text{ROT}_k \vert 1\,x_j\rangle=\exp{\bigg(\frac{2\pi i }{2^k} x_j\bigg)}\vert 1 \, x_j\rangle
 \end{equation}
 Con estas dos compuertas se puede construir el circuito que implementa la transformada de cuántica de Fourier como se muestra en el siguiente diagrama\\
 
@@ -262,11 +262,39 @@ Con estas dos compuertas se puede construir el circuito que implementa la transf
 \includegraphics[scale=0.29]{./qft_circuit.png} 
 \end{center} 
 \caption{Implementación de circuito QFT}
-\label{fig::NOT_gate}
+\label{fig::QFT_circuit}
 \end{figure}
 El circuito opera de la siguiente manera. Se empieza con un estado de entrada $\vert x_1\, x_2\hdots x_n\rangle$.
 \begin{enumerate}
-\item Se aplica la compuerta de Hadamard al primer qubit
+\item Se aplica la compuerta de Hadamard al primer qubit y se transforma al estado de entrada de la siguiente manera
+\begin{equation}
+H_1\vert x_1 x_2\hdots x_n\rangle=\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2} x_1\bigg)}\vert 1\rangle\bigg] \otimes \vert x_2 x_3\hdots x_n\rangle
+\end{equation}
+\item Después se aplica la compuerta $U\,\text{ROT}_2$ al qubit 1 controlado por el qubit 2, esto resulta en 
+\begin{equation}
+\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^2} x_2+\frac{2\pi i }{2} x_1\bigg)}\vert 1\rangle\bigg] \otimes \vert x_2 x_3\hdots x_n\rangle
+\end{equation}
+\item Este proceso del paso anterior se repite hasta llegar al qubit n, es decir cuando se aplica la última compuerta $U\,\text{ROT}_n$ al qubit 1 controlado por el qubit $n$, el estado es transformado a
+\begin{equation}\label{eq::step3_QFT_circuit}
+\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^n} x_n+\frac{2\pi i }{2^{n-1}} x_{n-1}+\hdots +\frac{2\pi i }{2^2} x_2+\frac{2\pi i }{2} x_1\bigg)}\vert 1\rangle\bigg] \otimes \vert x_2 x_3\hdots x_n\rangle
+\end{equation}
+
+Notando que\footnote{Se hace la observación que al final $x$ es una etiqueta para el estado y $\{x_1,\hdots,x_n\}\in \{0,1\}$, por lo que se tiene es una representación de la etiqueta de forma binaria, i.e. base 2}
+\begin{equation}
+x=2^{n-1} x_{1}+2^{n-2} x_{2}+\hdots+ 2^{1} x_{n-1}+2^{0} x_{n}
+\end{equation}
+se puede escribir el estado \ref{eq::step3_QFT_circuit} como 
+\begin{equation}
+\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^n} x\bigg)}\vert 1\rangle\bigg] \otimes \vert x_2 x_3\hdots x_n\rangle
+\end{equation}
+\item Después de una secuencia análoga a la de los pasos 1-3 para los qubits $2\hdots n$ se obtiene el estado final
+\begin{equation}
+\begin{aligned}
+\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^n} x\bigg)}\vert 1\rangle\bigg] \otimes \frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^{n-1}} x\bigg)}\vert 1\rangle\bigg] \otimes\hdots\\ 
+\otimes\frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^2} x\bigg)}\vert 1\rangle\bigg] \otimes \frac{1}{\sqrt{2}}\bigg[\vert 0\rangle + \exp{\bigg(\frac{2\pi i }{2^1} x\bigg)}\vert 1\rangle\bigg] 
+\end{aligned}
+\end{equation} 
+que es equivalente a la expresión general \ref{eq::QFT_3} desarrollada anteriormente, con la observación que el orden de los qubits se ha revertido en el estado final de salida, es por esto que se utilizan unos operadores llamados \textit{swap} como se ve al final del diagrama \ref{fig::QFT_circuit}.
 \end{enumerate}
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
