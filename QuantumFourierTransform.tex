@@ -296,6 +296,24 @@ se puede escribir el estado \ref{eq::step3_QFT_circuit} como
 \end{equation} 
 que es equivalente a la expresión general \ref{eq::QFT_3} desarrollada anteriormente, con la observación que el orden de los qubits se ha revertido en el estado final de salida, es por esto que se utilizan unos operadores llamados \textit{swap} como se ve al final del diagrama \ref{fig::QFT_circuit}.
 \end{enumerate}
+\subsection{Ejemplo 2: TCF de 3 qubits}
+Para hacer explícitos los cálculos para hallar la TCF para 3 qubits se quiere encontrar $\vert y_1 y_2 y_3\rangle=QFT_8\vert x_3 x_2 x_1\rangle$. Los pasos son los siguientes:
+\begin{enumerate}
+\item Aplicar la compuerta de Hadamard al qubit $\vert x_1 \rangle$
+\begin{equation}
+\vert \psi_1\rangle=\vert x_3\rangle\otimes \vert x_2\rangle\otimes\frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{equation}
+\item Aplicar la compuerta $U\,\text{ROT}_2$ al qubit $\vert x_1\rangle$ controlado o dependiente del qubit $\vert x_2\rangle$
+\begin{equation}
+\vert \psi_2\rangle=\vert x_3\rangle\otimes \vert x_2\rangle\otimes\frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{equation}
+\item Aplicar la compuerta $U\,\text{ROT}_3$ a $\vert x_1\rangle$ controlado por $\vert x_3\rangle$
+\begin{equation}
+\vert \psi_3\rangle=\vert x_3\rangle\otimes \vert x_2\rangle\otimes\frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^3} x_3 +\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{equation}
+\end{enumerate}
+\subsection{Observaciones sobre el circuito QFT}
+
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
 %% autor o autor principal
