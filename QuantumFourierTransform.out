@@ -10,3 +10,4 @@
 \BOOKMARK [1][-]{section.3}{Circuito para la Transformada Cu\341ntica de Fourier}{}% 10
 \BOOKMARK [2][-]{subsection.3.1}{Ejemplo 2: TCF de 3 qubits}{section.3}% 11
 \BOOKMARK [2][-]{subsection.3.2}{Observaciones sobre el circuito QFT}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Implementaci\363n en Qiskit}{section.3}% 13
