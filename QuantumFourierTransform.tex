@@ -311,9 +311,27 @@ Para hacer explícitos los cálculos para hallar la TCF para 3 qubits se quiere 
 \begin{equation}
 \vert \psi_3\rangle=\vert x_3\rangle\otimes \vert x_2\rangle\otimes\frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^3} x_3 +\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
 \end{equation}
+\item Ahora se empieza o operar con al segundo qubit\footnote{Esto generalmente se obtendría de manera matemática al operar al estado que es un producto tensorial de estados con el producto tensorial de los operadores para cada qubit, pero en el acercamiento de circuitos estos cálculos se hacen de manera secuencial}, de nuevo con la compuerta de Hadamard
+\begin{equation}
+\vert \psi_4\rangle=\vert x_3\rangle \otimes \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg( \frac{2\pi i}{2} x_2 \bigg)}\vert 1\rangle\bigg] \otimes  \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^3} x_3 +\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{equation}
+\item Aplicar la compuerta $U\,\text{ROT}_2$ al qubit $\vert x_2\rangle$ controlado del qubit $\vert x_3\rangle$
+\begin{equation}
+\psi_5\rangle=\vert x_3\rangle \otimes \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^2} x_3 + \frac{2\pi i}{2} x_2 \bigg)}\vert 1\rangle\bigg] \otimes  \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^3} x_3 +\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{equation}
+\item Al tercer qubit $\vert x_3\rangle$ sólo se le aplica la compuerta de Hadamard
+\begin{equation}\label{eq::step6_QFT}
+\begin{aligned}
+\vert \psi_4 \rangle= \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{ \frac{2\pi i}{2} x_3 \bigg)}\vert 1\rangle\bigg] \otimes \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^2} x_3 + \frac{2\pi i}{2} x_2 \bigg)}\vert 1\rangle\bigg]\\
+ \otimes  \frac{1}{\sqrt{2}}\bigg[ \vert 0\rangle + \exp{\bigg(\frac{2\pi i}{2^3} x_3 +\frac{2\pi i}{2^2} x_2+\frac{2\pi i}{2} x_1\bigg)}\vert 1\rangle\bigg]
+\end{aligned}
+\end{equation}
+\item Por último se nota que el resultado no tiene el orden deseado para el resultado deseado para la QFT por lo que hay que revertir el orden de los qubit para obtener la QFT definida previamente, en este caso en particular intercambiar(\textit{swap}) el qubit 3 por el qubit 1.
 \end{enumerate}
 \subsection{Observaciones sobre el circuito QFT}
+En el ejemplo anterior de la transforama para 3 qubit se demuestra una forma muy útil de la TCF para $N=2^n$, se nota en la expresión \ref{eq::step6_QFT} solo el último qubit depende del valor de todos los qubit, y que cada qubit anterior va disminuyendo su dependencia en los qubits de entrada. Esto toma relevancia en implementaciones físicas de este circuito, donde los acoples entre qubits cercanos son más fáciles de adquirir que los acoples entre qubit más alejados.\\
 
+Adicionalmente, cuando el circuito para la implementación QFT se hace más grande, se gasta más tiempo al realizar rotaciones incrementalmente pequeñas. Resulta que después de cierto umbral se pueden ignorar a las rotaciones y obtener un resultado aceptable. Esto también es de vital importancia para implementaciones físicas ya que al reducir el número de operaciones de puede dismunir considerablemente la decoherencia y los errores intrínsecos de la aplicar varias compuertas cuánticas.
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
 %% autor o autor principal
