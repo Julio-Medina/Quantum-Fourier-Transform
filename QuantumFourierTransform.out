@@ -11,3 +11,4 @@
 \BOOKMARK [2][-]{subsection.3.1}{Ejemplo 2: TCF de 3 qubits}{section.3}% 11
 \BOOKMARK [2][-]{subsection.3.2}{Observaciones sobre el circuito QFT}{section.3}% 12
 \BOOKMARK [2][-]{subsection.3.3}{Implementaci\363n en Qiskit}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.1}{QFT para 3 qubits}{subsection.3.3}% 14

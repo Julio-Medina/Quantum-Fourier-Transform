@@ -335,7 +335,7 @@ Adicionalmente, cuando el circuito para la implementación QFT se hace más gran
 \subsection{Implementación en Qiskit}
 Qiskit es la plataforma creada por IBM para correr circuitos cuánticos en sus ordenadores, hay opciones de simular los circuitos y opciones para correr en las computadoras cuánticas distribuidas alrededor del mundo. Qiskit es relativamente fácil de utilizar y se usa como una API en el lenguaje popular open source Python.\\
 
-En Qiskit la implementación de la compuerta $C\, ROT$ usada en los desarrollos previos, se conococe como rotación de fase controlada. Está compuerta está definida en \textbf{OpenQASM}, \cite{openQASM} de la siguiente manera:
+En Qiskit la implementación de la compuerta $C\, ROT$ usada en los desarrollos previos, se conoce como rotación de fase controlada. Está compuerta está definida en \textbf{OpenQASM}, \cite{openQASM} de la siguiente manera:
 \begin{equation}
 CP(\theta)=
 \begin{bmatrix}
@@ -345,6 +345,11 @@ CP(\theta)=
 1&0&0&e^{i\theta}\\
 \end{bmatrix}
 \end{equation}
+por lo que para obtener la compuerta $C\, ROT_k$ a través de la compuerta $CP$ se aplica el mapeo
+\begin{equation}
+\theta=\frac{2\pi}{2^k}=\frac{\pi}{2^{k-1}}
+\end{equation}
+\subsubsection{QFT para 3 qubits}
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
 %% autor o autor principal
