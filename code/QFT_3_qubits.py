@@ -8,11 +8,7 @@ Qiskit implementation of the Quantum Fourier Transform(QFT) for 3-qubits
 
 """
 import numpy as np
-
-from qiskit import QuantumCircuit, transpile, Aer, IBMQ
-from qiskit.providers.ibmq import least_busy
-from qiskit.tools.monitor import job_monitor
-from qiskit.visualization import plot_histogram, plot_bloch_multivector
+from qiskit import QuantumCircuit
 
 # defines the Quantum circuit for 3 qubits 
 qc = QuantumCircuit(3)
@@ -32,6 +28,9 @@ qc.cp(np.pi/2, 0, 1)
 
 # applies the hadamard on the last qubit, qubit 0 in Qiskit notation
 qc.h(0)
+
+# swaps qubit 0 and 2 to account for the sequential implementation of the QFT
+qc.swap(0,2)
 
 qc.draw(output='mpl')
 
