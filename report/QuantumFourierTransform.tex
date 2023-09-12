@@ -12,6 +12,7 @@
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{mathtools}
+\usepackage[export]{adjustbox}
 
 \begin{document}
 \pagenumbering{arabic}
@@ -350,6 +351,15 @@ por lo que para obtener la compuerta $C\, ROT_k$ a través de la compuerta $CP$ 
 \theta=\frac{2\pi}{2^k}=\frac{\pi}{2^{k-1}}
 \end{equation}
 \subsubsection{QFT para 3 qubits}
+Utilizando la plataforma de computación cuántica Qiskit desarrollada por IBM, se puede implementar a la TCF a través de una API de python. El diagrama del circuito resultante que también se genera por medio de herramientas de Qiskit se puede ver en la siguiente figura
+\begin{figure}[h]
+%\begin{center}
+\includegraphics[scale=0.5, center]{./qft_3_qubits.png} 
+%\end{center} 
+\caption{Implementación de circuito QFT para 3 qubits}
+\label{fig::QFT_circuit}
+\end{figure}
+
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
 %% autor o autor principal
