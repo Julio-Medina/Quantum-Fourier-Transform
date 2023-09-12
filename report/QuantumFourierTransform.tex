@@ -125,14 +125,14 @@ f(x)=\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i \omega x }\,d\omega \int_{-\infty
 La variable $\omega$ es una variable arbitraria, también conocida como variable muda, juega el papel que toma un indice en una sumatoria como indice mudo, sin embargo en muchos problemas físicos $\omega$ representa una frecuencia angular. Con esto se puede interpretar a las expresiones \ref{eq::Fourier_cosine} y \ref{eq::Fourier_exponetial} como representaciones de $f(x)$ en términos de una distribución de frentes de onda de longitud infinita con frecuencia angular $\omega$ donde la frecuencia es una variable real continua.
 \subsection{Transformada de Fourier}
 Definiendo a una función $g(\omega)$, como la transformada de Fourier a través de 
-\begin{equation}\label{eq::Fourier_trainsform}
+\begin{equation}\label{eq::Fourier_transform}
 g(\omega)\equiv \frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty f(t) e ^{i\omega t }\, dt.
 \end{equation}
 entonces es fácil ver que de la integral de Fourier \ref{eq::Fourier_exponetial} se tiene 
 \begin{equation}\label{eq::Inverse_Fourier_transform}
 f(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty g(\omega)e^{-i \omega x}\, d\omega.
 \end{equation}
-esta relación también es conocida como teorema de la inversión o transformada inversa de Fourier, vale la pena notar que las expresiones \ref{eq::Fourier_trainsform} y \ref{eq::Inverse_Fourier_transform} son casi simétricas, sin embargo difieren por el signo de la unidad imaginaria $i$.
+esta relación también es conocida como teorema de la inversión o transformada inversa de Fourier, vale la pena notar que las expresiones \ref{eq::Fourier_transform} y \ref{eq::Inverse_Fourier_transform} son casi simétricas, sin embargo difieren por el signo de la unidad imaginaria $i$.
 \section{Transformada Cuántica de Fourier}
 \subsection{Introducción}
 Como se mencionó antes la transformada de Fourier tienen mucha aplicaciones en toda la física y también tiene aplicaciones importantes en la computación clásica en áreas como el procesamiento de señales, algoritmos de compresión de datos y teoría de complejidad de algoritmos. La transformada de Fourier Cuántica es la implementación cuántica de la transformada discreta de Fourier sobre las amplitudes de una función de onda\footnote{Una función de onda que evoluciona de acuerdo a la ecuación de Schr\"{o}dinger}, es una parte fundamental de varios algoritmos cuánticos  como el algoritmo de factorización de Shor y la estimación de fase cuántica.\\
@@ -332,7 +332,7 @@ Para hacer explícitos los cálculos para hallar la TCF para 3 qubits se quiere 
 \subsection{Observaciones sobre el circuito QFT}
 En el ejemplo anterior de la transforama para 3 qubit se demuestra una forma muy útil de la TCF para $N=2^n$, se nota en la expresión \ref{eq::step6_QFT} solo el último qubit depende del valor de todos los qubit, y que cada qubit anterior va disminuyendo su dependencia en los qubits de entrada. Esto toma relevancia en implementaciones físicas de este circuito, donde los acoples entre qubits cercanos son más fáciles de adquirir que los acoples entre qubit más alejados.\\
 
-Adicionalmente, cuando el circuito para la implementación QFT se hace más grande, se gasta más tiempo al realizar rotaciones incrementalmente pequeñas. Resulta que después de cierto umbral se pueden ignorar a las rotaciones y obtener un resultado aceptable. Esto también es de vital importancia para implementaciones físicas ya que al reducir el número de operaciones de puede dismunir considerablemente la decoherencia y los errores intrínsecos de la aplicar varias compuertas cuánticas.
+Adicionalmente, cuando el circuito para la implementación QFT se hace más grande, se gasta más tiempo al realizar rotaciones incrementalmente pequeñas. Resulta que después de cierto umbral se pueden ignorar a las rotaciones y obtener un resultado aceptable. Esto también es de vital importancia para implementaciones físicas ya que al reducir el número de operaciones de puede disminuir considerablemente la decoherencia y los errores intrínsecos de la aplicar varias compuertas cuánticas.
 \subsection{Implementación en Qiskit}
 Qiskit es la plataforma creada por IBM para correr circuitos cuánticos en sus ordenadores, hay opciones de simular los circuitos y opciones para correr en las computadoras cuánticas distribuidas alrededor del mundo. Qiskit es relativamente fácil de utilizar y se usa como una API en el lenguaje popular open source Python.\\
 
