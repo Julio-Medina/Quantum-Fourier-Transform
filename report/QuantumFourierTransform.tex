@@ -146,7 +146,7 @@ donde
 \omega_{N}^{jk}=e^{2\pi i \frac{jk}{N}}.
 \end{equation}
 
-De manera análoga la transformada cuántica de Fourier actúa sobre un estado cuántico\footnote{un vector en un espacio de Hilbert, finito o infinito} 
+De manera análoga la transformada cuántica de Fourier actúa sobre un estado cuántico\footnote{Un vector en un espacio de Hilbert, finito o infinito} 
 \begin{equation}
 |X\rangle=\sum_{j=0}^{N-1} x_{j}|j\rangle
 \end{equation}
@@ -359,6 +359,18 @@ Utilizando la plataforma de computación cuántica Qiskit desarrollada por IBM, 
 \caption{Implementación de circuito QFT para 3 qubits}
 \label{fig::QFT_circuit}
 \end{figure}
+\subsubsection{QFT para n qubits}
+Para poder aplicar la transformada general a $n$ qubits se usa el acercamiento anterior pero se usa un truco de programación, la recursión es decir que se aplica las compuertas para el qubit más significativo y después se hace una llamada recursiva a la misma función para aplicar las compuertas necesarias al siguiente qubit más significativo y así sucesivamente hasta que se han operado todos los qubits del circuito. Para ver el diagrama secuencial del circuito se ha llamado a la función para $6$ qubits, el resultado es el siguiente\\
+
+\begin{figure}[h]
+%\begin{center}
+\includegraphics[scale=0.5, center]{./qft_6_qubits.png} 
+%\end{center} 
+\caption{Implementación de circuito QFT para 6 qubits}
+\label{fig::QFT_circuit}
+\end{figure}
+Las implementaciones anteriores pueden hallarse en el repositorio de GitHub. \url{https://github.com/Julio-Medina/Quantum-Fourier-Transform}
+
 
 \begin{thebibliography}{99}
 %% La bibliografía se ordena en orden alfabético respecto al apellido del 
